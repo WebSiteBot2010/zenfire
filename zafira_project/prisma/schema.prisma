@@ -1,0 +1,25 @@
+datasource db {
+  provider = "postgresql" // o il database che preferisci
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Guild {
+  id        String   @id
+  name      String
+  icon      String?
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Ticket {
+  id        String   @id @default(cuid())
+  guildId   String
+  userId    String
+  subject   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+}
